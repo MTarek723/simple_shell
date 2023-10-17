@@ -7,13 +7,16 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <errno.h>
 
 extern char **environ;
 #define EXIT "exit\n"
+#define CD "cd\n"
 #define ENV "env\n"
 #define BUFF_SIZE 1024
 #define DELIM " \n"
 
+void sh_cd(const char *args, const char *program_name);
 char *locate(char *command);
 void excut(char **argv);
 char **split(char *buff, int x);

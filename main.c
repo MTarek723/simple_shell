@@ -18,7 +18,7 @@ while (1)
 {
 if (isatty(STDIN_FILENO))
 {
-sh_puts("$ "); 
+sh_puts("($) "); 
 }
 x = getline(&buff, &len, stdin);
 if (x == -1)

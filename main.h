@@ -16,7 +16,7 @@ extern char **environ;
 #define BUFF_SIZE 1024
 #define DELIM " \n"
 
-void sh_cd(const char *args, const char *program_name);
+void sh_cd(const char *args);
 char *locate(char *command);
 void excut(char **argv);
 char **split(char *buff, int x);

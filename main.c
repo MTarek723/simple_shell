@@ -21,7 +21,6 @@ sh_puts("$ "); }
 x = getline(&buff, &len, stdin);
 if (x == -1)
 {
-sh_puts("\n");
 return (-1); }
 if (sh_strcmp(buff, EXIT) == 0)
 {

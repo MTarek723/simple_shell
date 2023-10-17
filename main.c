@@ -1,14 +1,13 @@
 #include "main.h"
 /**
  * main - entry point
- * @ac: arg count
- * @av: arg vector
+ * @argc: arg count
+ * @argv: arg vector
  *
  * Return: 0 on success, 1 on error
  */
 int main(int argc, char **argv)
 {
-
 char *buff;
 size_t len = 0;
 int x;
@@ -18,18 +17,15 @@ while (1)
 {
 if (isatty(STDIN_FILENO))
 {
-sh_puts("($) "); 
-}
+sh_puts("$ "); }
 x = getline(&buff, &len, stdin);
 if (x == -1)
 {
 sh_puts("\n");
-return (-1);
-}
+return (-1); }
 if (sh_strcmp(buff, EXIT) == 0)
 {
-break;
-}
+break; }
 else if (sh_strcmp(buff, ENV) == 0)
 {
 for (k = 0; environ[k]; k++)
@@ -37,13 +33,11 @@ for (k = 0; environ[k]; k++)
 sh_puts(environ[k]);
 sh_puts("\n");
 }
-continue;
-}
+continue; }
 argv = split(buff, x);
 if (argv[0] == NULL)
 {
-continue;
-}
+continue; }
 excut(argv);
 fflush(stdout);
 for (k = 0; argv[k]; k++)

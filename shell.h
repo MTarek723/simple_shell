@@ -15,6 +15,7 @@ extern char **environ;
 
 void sh_cd(const char *args, const char *program_name);
 void execute_command(const char *input, const char *program_name);
+void execute_single_command(const char *input, const char *program_name);
 char *sh_getenv(const char *call);
 int _strcmp(char *s1, char *s2);
 char *sh_strcpy(char *dst, char *sorc);

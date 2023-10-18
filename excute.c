@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * execute_command - main shell excution
+ * execute_single_command - main shell excution
  * @input: the argument vector from main()
  * @program_name: a string contain program name.
  * Return: void
@@ -10,7 +10,6 @@ void execute_command(const char *input, const char *program_name)
 {
 	char **args = (char **)malloc(sizeof(char *) * MAX_INPUT_LENGTH);
 	char *token = strtok((char *)input, " ");
-	char *previous_dir;
 	int i = 0, status, exit_status;
 	pid_t pid;
 
@@ -59,15 +58,7 @@ void execute_command(const char *input, const char *program_name)
 	}
 	if (sh_strcmp(args[0], "cd") == 0)
 	{
-		if (i == 1 || sh_strcmp(args[1], "~") == 0)
-			sh_cd(sh_getenv("HOME"), program_name);
-		else if (sh_strcmp(args[1], "-") == 0)
-		{
-			previous_dir = getenv("OLDPWD");
-			sh_cd(previous_dir, program_name);
-		}
-		else
-			sh_cd(args[1], program_name);
+		sh_cd(args[1], program_name);
 		return;
 	}
 	pid = fork();
@@ -88,8 +79,6 @@ void execute_command(const char *input, const char *program_name)
 	else
 	{
 		waitpid(pid, &status, 0);
-		if (status != 0)
-			exit(2);
 	}
 	free_args(args, i);
 	free(args);

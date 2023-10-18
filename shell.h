@@ -26,5 +26,6 @@ int sh_strlen(char *str);
 int sh_strcmp(const char *str1, const char *str2);
 size_t my_strcspn(const char *str, const char *reject);
 void print_environment(void);
+void free_args(char **args, int count);
 
 #endif

@@ -10,8 +10,7 @@ int main(int argc, char **argv)
 {
 char *buff;
 size_t len = 0;
-int x;
-int k;
+int x, k;
 (void) argc;
 while (1)
 {
@@ -21,30 +20,31 @@ sh_puts("$ "); }
 x = getline(&buff, &len, stdin);
 if (x == -1)
 {
-return (-1); }
+if (feof(stdin))
+{
+exit(EXIT_SUCCESS); }
+else
+{
+perror("readline");
+exit(EXIT_FAILURE); } }
 if (sh_strcmp(buff, EXIT) == 0)
 {
-break; }
+exit(EXIT_SUCCESS); }
 else if (sh_strcmp(buff, ENV) == 0)
 {
 for (k = 0; environ[k]; k++)
 {
 sh_puts(environ[k]);
-sh_puts("\n");
-}
+sh_puts("\n"); }
 continue; }
 argv = split(buff, x);
 if (argv[0] == NULL)
 {
 continue; }
 excut(argv);
-fflush(stdout);
 for (k = 0; argv[k]; k++)
 {
-free(argv[k]);
-}
-}
+free(argv[k]); } }
 free(argv);
 free(buff);
-return (0);
-}
+return (0); }

@@ -67,7 +67,14 @@ void execute_command(const char *input, const char *program_name)
 		exit(EXIT_FAILURE);
 	}
 	else
+	{
 		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+		{
+			if (WEXITSTATUS(status) != 0)
+				exit(WEXITSTATUS(status));
+		}
+	}
 	free_args(args, i);
 	free(args);
 }

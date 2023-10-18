@@ -1,6 +1,6 @@
 #include "shell.h"
 /**
- * execute_single_command - main shell excution
+ * execute_command - main shell excution
  * @input: the argument vector from main()
  * @program_name: a string contain program name.
  * Return: void

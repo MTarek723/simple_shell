@@ -22,13 +22,13 @@ void print_environment(void)
 		exit(EXIT_FAILURE);
 	}
 	env = environ;
-	for(i = 0; *env; i++, env++)
+	for (i = 0; *env; i++, env++)
 		env_copy[i] = *env;
-	for(i = 0; i < count; i++)
+	for (i = 0; i < count; i++)
 	{
 		if (sh_strcmp(env_copy[i], "SHLVL=0") == 0)
 		{
-		
+
 			temp = env_copy[i];
 			for (j = i; j > 0; j--)
 				env_copy[j] = env_copy[j - 1];
@@ -36,7 +36,7 @@ void print_environment(void)
 			break;
 		}
 	}
-	for(k = 0; k < count; k++)
+	for (k = 0; k < count; k++)
 	{
 		sh_puts(env_copy[k]);
 		sh_puts("\n");

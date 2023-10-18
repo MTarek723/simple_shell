@@ -57,7 +57,7 @@ void execute_command(const char *input, const char *program_name)
 		perror("fork");
 		free_args(args, i);
 		free(args);
-		_exit(2);;
+		_exit(2);
 	} else if (pid == 0)
 	{
 		execvp(args[0], args);

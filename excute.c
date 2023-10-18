@@ -5,6 +5,7 @@
  * @program_name: a string contain program name.
  * Return: void
  */
+void execute_command(const char *input, const char *program_name);
 void execute_command(const char *input, const char *program_name)
 {
 	char **args = (char **)malloc(sizeof(char *) * MAX_INPUT_LENGTH);
@@ -54,13 +55,13 @@ void execute_command(const char *input, const char *program_name)
 	if (pid == -1)
 	{
 		perror("fork");
-		free_args(args ,i);
+		free_args(args, i);
 		free(args);
 		exit(EXIT_FAILURE);
 	} else if (pid == 0)
 	{
 		execvp(args[0], args);
-		perror(args[0]);
+		fprintf(stderr, "%s: 1: %s: not found\n", program_name, args[0]);
 		free_args(args, i);
 		free(args);
 		exit(EXIT_FAILURE);

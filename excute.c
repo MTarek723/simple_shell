@@ -57,7 +57,7 @@ void execute_command(const char *input, const char *program_name)
 		perror("fork");
 		free_args(args, i);
 		free(args);
-		exit(EXIT_FAILURE);
+		_exit(2);;
 	} else if (pid == 0)
 	{
 		execvp(args[0], args);
@@ -69,11 +69,8 @@ void execute_command(const char *input, const char *program_name)
 	else
 	{
 		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-		{
-			if (WEXITSTATUS(status) != 0)
-				exit(WEXITSTATUS(status));
-		}
+		if (status != 0)
+			exit(2);
 	}
 	free_args(args, i);
 	free(args);

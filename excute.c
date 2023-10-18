@@ -10,7 +10,7 @@ void execute_command(const char *input, const char *program_name)
 {
 	char **args = (char **)malloc(sizeof(char *) * MAX_INPUT_LENGTH);
 	char *token = strtok((char *)input, " ");
-	int i = 0, status;
+	int i = 0, status, exit_status;
 	pid_t pid;
 
 	if (args == NULL)
@@ -37,9 +37,19 @@ void execute_command(const char *input, const char *program_name)
 	}
 	if (sh_strcmp(args[0], "exit") == 0)
 	{
-		free_args(args, i);
-		free(args);
-		exit(EXIT_SUCCESS);
+		if (i > 1)
+		{
+			exit_status = _atoi(args[1]);
+			free_args(args, i);
+			free(args);
+			exit(exit_status);
+		}
+		else
+		{
+			free_args(args, i);
+			free(args);
+			exit(EXIT_SUCCESS);
+		}
 	}
 	if (sh_strcmp(args[0], "env") == 0)
 	{

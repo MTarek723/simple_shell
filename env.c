@@ -10,6 +10,7 @@ void print_environment(void)
 	while (*env)
 	{
 		sh_puts(*env);
+		sh_puts("\n");
 		env++;
 	}
 }

@@ -92,6 +92,10 @@ void execute_command(const char *input, const char *program_name)
 	else
 	{
 		waitpid(pid, &status, 0);
+if (WIFEXITED(status))
+{
+exit_status = WEXITSTATUS(status);
+}
 		if (WIFSIGNALED(status))
 		{
 			exit_status1 = 128 + WTERMSIG(status);
@@ -100,4 +104,5 @@ void execute_command(const char *input, const char *program_name)
 	}
 	free_args(args, i);
 	free(args);
+	exit(exit_status);
 }

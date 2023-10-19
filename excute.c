@@ -62,6 +62,8 @@ void execute_command(const char *input, const char *program_name)
 	if (sh_strcmp(args[0], "cd") == 0)
 	{
 		sh_cd(args[1], program_name);
+		free_args(args, i);
+		free(args);
 		return;
 	}
 	pid = fork();

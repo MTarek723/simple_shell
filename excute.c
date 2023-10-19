@@ -10,7 +10,7 @@ void execute_command(const char *input, const char *program_name)
 {
 	char **args = (char **)malloc(sizeof(char *) * MAX_INPUT_LENGTH);
 	char *token = strtok((char *)input, " ");
-	int i = 0, status, exit_status;
+	int i = 0, status, exit_status, exit_status1;
 	pid_t pid;
 
 	if (args == NULL)
@@ -32,6 +32,7 @@ void execute_command(const char *input, const char *program_name)
 	args[i] = NULL;
 	if (i == 0)
 	{
+		free_args(args, i);
 		free(args);
 		return;
 	}
@@ -54,6 +55,8 @@ void execute_command(const char *input, const char *program_name)
 	if (sh_strcmp(args[0], "env") == 0)
 	{
 		print_environment();
+		free_args(args, i);
+		free(args);
 		return;
 	}
 	if (sh_strcmp(args[0], "cd") == 0)
@@ -67,18 +70,31 @@ void execute_command(const char *input, const char *program_name)
 		perror("fork");
 		free_args(args, i);
 		free(args);
-		_exit(2);
+		exit(EXIT_FAILURE);
 	} else if (pid == 0)
 	{
 		execvp(args[0], args);
+		if (errno == ENOENT)
+		{
+			status = 127;
+		}
+		else
+		{
+			status = 1;
+		}
 		fprintf(stderr, "%s: 1: %s: not found\n", program_name, args[0]);
 		free_args(args, i);
 		free(args);
-		exit(EXIT_FAILURE);
+		_exit(status);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status))
+		{
+			exit_status1 = 128 + WTERMSIG(status);
+			exit(exit_status1);
+		}
 	}
 	free_args(args, i);
 	free(args);

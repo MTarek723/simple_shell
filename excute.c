@@ -41,16 +41,9 @@ void execute_command(const char *input, const char *program_name)
 		if (i > 1)
 		{
 			exit_status = _atoi(args[1]);
-			if (exit_status >= 0)
-			{
-				free_args(args, i);
-				free(args);
-				exit(exit_status);
-			}
-			else
-			{
-				fprintf(stderr, "%s: exit: Illegal number: %s\n", program_name, args[1]);
-			}
+			free_args(args, i);
+			free(args);
+			exit(exit_status);
 		}
 		else
 		{

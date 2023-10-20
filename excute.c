@@ -104,5 +104,4 @@ exit_status = WEXITSTATUS(status);
 	}
 	free_args(args, i);
 	free(args);
-	exit(exit_status);
 }
